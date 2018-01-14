@@ -7,18 +7,35 @@ from sqlalchemy import create_engine
 
 __engine__ = create_engine('mysql+mysqldb://admin:Abc123$@localhost/db')
 
+from web.lib import get_pardir
+
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
-        # self.write("Hello, world")
-        pass
+
+        if not self.current_user:
+            # route = os.path.realpath(os.path.join(self.__file__, os.pardir))
+            self.render(get_pardir() + '/templates/login.html')
+            return
 
 
-class Login:
+class Login(tornado.web.RequestHandler):
+
+    def get(self):
+
+        user = self.get_argument('user')
+        pwd = self.get_argument('pwd')
+
+
+class Form(tornado.web.RequestHandler):
     pass
 
 
-class Form:
+class Form(tornado.web.RequestHandler):
+    pass
+
+
+class Graphs(tornado.web.RequestHandler):
     pass
 
 
@@ -81,7 +98,6 @@ class Organ(tornado.web.RequestHandler):
         # organ is built at this point
 
 
-
 class Graphs:
     pass
 
@@ -99,5 +115,5 @@ def make_app():
 if __name__ == "__main__":
 
     app = make_app()
-    app.listen(8888)
+    app.listen(8898)
     tornado.ioloop.IOLoop.current().start()
