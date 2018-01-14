@@ -11,6 +11,7 @@ from web.lib import get_pardir
 
 
 class MainHandler(tornado.web.RequestHandler):
+
     def get(self):
 
         if not self.current_user:
@@ -96,6 +97,7 @@ class Organ(tornado.web.RequestHandler):
                     }
 
         # organ is built at this point
+        self.render(get_pardir() + '/templates/organ.html')
 
 
 class Graphs:
